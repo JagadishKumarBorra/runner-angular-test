@@ -1,4 +1,6 @@
-export const titles = [
+import { Title } from "./title";
+
+export const titles:Title[] = [
   {
     id: "94212",
     name: "WHEEL OF FATE",
@@ -508,3 +510,5 @@ export const titles = [
     title_level: null
   }
 ];
+
+export default titles;

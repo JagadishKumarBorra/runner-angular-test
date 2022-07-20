@@ -1,0 +1,35 @@
+
+
+
+<div>
+
+    Select Title: 
+    <form [formGroup]="form">
+    <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Select Titles</mat-label>
+        <mat-chip-list #filteredTitle aria-label="Titles">
+          <mat-chip
+          *ngFor="let id of keys(selectedTitles)"
+            (removed)="removeTitle(id)">
+
+            {{selectedTitles[id].full_name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            placeholder="Title"
+            [(ngModel)]="searchCtrlVal"
+            [formControl]="searchCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="filteredTitle"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addTitleByFind($event)">
+        </mat-chip-list>
+        <mat-autocomplete  #auto="matAutocomplete" (optionSelected)="addTitleByFind($event.option.value)">
+          <mat-option (click)="addTitle(title)" *ngFor="let title of filteredTitles | async"          [value]="title">
+           <span  [innerHTML]="title.full_name | highlight: searchCtrl.value"></span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>

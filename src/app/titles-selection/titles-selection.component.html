@@ -1,0 +1,24 @@
+<div>
+
+  Select Title: 
+<mat-form-field>
+    <input focus="focus" placeholder="Select Title" matInput [matAutocomplete]="auto" [formControl]="searchCtrl">
+    <mat-autocomplete (optionSelected)="addTitle($event.option.value)"  #auto="matAutocomplete">
+      <mat-option *ngFor="let title of filteredTitles | async" 
+        [value]="title">
+        <span  [innerHTML]="title.full_name | highlight: searchCtrl.value"></span>
+        
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <div>
+    <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+      <mat-chip *ngFor="let id of keys(selectedTitles)">
+        {{selectedTitles[id].full_name}}
+        <button matChipRemove>
+          <mat-icon (click)="removeTitle(id)">cancel</mat-icon>
+        </button>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+  </div>
